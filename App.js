@@ -1,21 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Home from './src/screens/Home';
+import Winner from './src/screens/Winner';
+import Points from './src/components/Points';
+import { Button, Icon } from 'react-native-elements';
+import { StatusBar } from 'react-native';
+
+const Stack = createNativeStackNavigator() 
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StatusBar barStyle={'light-content'}/>
+        <Stack.Navigator initialRouteName='Home' screenOptions={screenOptions}>
+            <Stack.Screen
+              name='Home'
+              component={Home}
+              options={() => {
+                return {
+                  title: 'Truco'
+                }}}
+            />
+            <Stack.Screen
+              name='Winner'
+              component={Winner}
+              options={{ 
+                title: 'Fim da partida'
+               }}
+            />
+        </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: '#000'
   },
-});
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold'
+  },
+}
