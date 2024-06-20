@@ -2,6 +2,11 @@
   "expo": {
     "name": "truco-app",
     "slug": "truco-app",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "f188677a-a0de-4209-9e10-d62e1eb6d6a6"
+      }
+    }
   }
 }

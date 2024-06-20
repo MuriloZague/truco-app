@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 
 export default function Points() {
   const navigation = useNavigation();
@@ -25,6 +24,30 @@ export default function Points() {
       navigation.navigate('Winner');
     }
   }, [points1, points2]);
+
+  const confirmReset = () => {
+    Alert.alert(
+      'Atenção!',
+      'Deseja zerar os pontos e as vitórias?',
+      [
+        {
+          text:'Sim',
+          onPress: () => reset(),
+        },
+        {
+          text:'Não',
+        }
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const reset = () => {
+    setPoints1(0);
+    setPoints2(0);
+    setWinner1(0);
+    setWinner2(0);
+  }
 
 
  return (
@@ -74,11 +97,14 @@ export default function Points() {
         </TouchableOpacity>
       </View>
       <View style={styles.victory}>
-
         <Text style={styles.textWin}>{winner1}</Text>
         <Text style={styles.textWin}>Vitórias</Text>
         <Text style={styles.textWin}>{winner2}</Text>
-
+      </View>
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => confirmReset()}>
+          <Image style={styles.img} source={require('../assets/renew.png')}></Image>
+        </TouchableOpacity>
       </View>
    </View>
   );
@@ -88,12 +114,17 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
   },
+  img: {
+    width: 30,
+    height: 30,
+  },
   points: {
     alignItems: 'center',
     justifyContent: 'space-around',
     flexDirection: 'row',
   },
   pointsText: {
+    color: '#fff',
     fontSize: 110,
     fontWeight: 'bold',
     marginBottom: 45,
@@ -128,14 +159,18 @@ const styles = StyleSheet.create ({
   victory: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 40,
+    margin: 30,
   },
   textWin: {
+    color: '#fff',
     fontSize: 25,
   },
   textBtn: {
     textAlign: 'center',
     fontSize: 15,
     color: '#fff',
+  },
+  footer: {
+    alignItems: 'center',
   }
 })

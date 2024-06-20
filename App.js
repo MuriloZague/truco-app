@@ -17,7 +17,7 @@ export default function App() {
             <Stack.Screen
               name='Home'
               component={Home}
-              options={() => {
+              options={({ navigation }) => {
                 return {
                   title: 'Truco'
                 }}}
